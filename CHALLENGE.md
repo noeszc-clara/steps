@@ -1,128 +1,33 @@
-# 🪜 Steps Challenge
+# Steps Challenge
 
 Implement a multi-step wizard component in React **without any UI libraries**.
 
 ---
 
-## 🗂️ Project structure
+## Project structure
 
 | File | Purpose |
 |------|---------|
-| `src/steps/types.ts` | Type contracts — **do not modify** |
-| `src/steps/index.tsx` | ✏️ Your implementation goes here |
+| `src/steps/step.types.ts` | Type contracts — **do not modify** |
+| `src/steps/steps.tsx` | Your implementation goes here |
+| `src/steps/index.ts` | Re-exports — wire up your compound component here |
 | `src/app.tsx` | Usage example — modify freely for testing |
 
 ---
 
-## 🔬 Anatomy
+## Anatomy
 
 ![Steps anatomy](./src/assets/anatomy.svg)
 
 ---
 
-## 📐 Types
+## Types
 
-These are the contracts your implementation must satisfy. **Do not modify `src/steps/types.ts`.**
-
-```ts
-interface StepChangeDetails {
-  /** The step index that is now active */
-  step: number;
-}
-
-interface StepInvalidDetails {
-  /** The step that failed validation */
-  step: number;
-  /** What triggered the validation */
-  action: "next" | "set";
-  /** The step the user tried to reach */
-  targetStep?: number;
-}
-
-interface StepRootProps {
-  /** Total number of steps */
-  count: number;
-  /**
-   * Initial active step — uncontrolled mode.
-   * Do not combine with `step`.
-   * @default 0
-   */
-  defaultStep?: number;
-  /**
-   * Active step index — controlled mode.
-   * When provided, the component does not manage its own step state;
-   * it renders whatever value you pass and fires `onStepChange` on navigation.
-   * Do not combine with `defaultStep`.
-   */
-  step?: number;
-  /** Called when the active step changes */
-  onStepChange?: (details: StepChangeDetails) => void;
-  /**
-   * Called when navigation is blocked by `isStepValid`.
-   * Fires on both Next button clicks and direct step jumps.
-   */
-  onStepInvalid?: (details: StepInvalidDetails) => void;
-  /** Called once when every step has been completed */
-  onStepComplete?: () => void;
-  /**
-   * Return `false` to block forward navigation from a given step.
-   *
-   * @example
-   * isStepValid={(index) => index !== 1 || formRef.current?.checkValidity()}
-   */
-  isStepValid?: (index: number) => boolean;
-  /** Additional CSS class for the root element */
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepListProps {
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepItemProps {
-  /** The index of the step */
-  index: number;
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepTriggerProps {
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepIndicatorProps {
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepSeparatorProps {
-  className?: string;
-}
-
-interface StepContentProps {
-  /** The index of the step content panel */
-  index: number;
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepCompletedContentProps {
-  className?: string;
-  children: React.ReactNode;
-}
-
-interface StepNavigationTriggerProps {
-  className?: string;
-  children: React.ReactNode;
-}
-```
+All type contracts live in [`src/steps/step.types.ts`](./src/steps/step.types.ts) — read them carefully before starting.
 
 ---
 
-## 🧩 Usage API
+## Usage API
 
 Your implementation must support this usage out of the box:
 
@@ -136,7 +41,7 @@ const items = [
 ];
 
 // Uncontrolled — component manages its own step state
-function UncontrolledExample() {
+function Uncontrolled() {
   return (
     <Steps.Root count={items.length} defaultStep={0} onStepComplete={() => console.log("done!")}>
       <Steps.List>
@@ -170,7 +75,7 @@ function UncontrolledExample() {
 }
 
 // Controlled — parent owns the step state
-function ControlledExample() {
+function Controlled() {
   const [step, setStep] = React.useState(0);
 
   return (
@@ -189,7 +94,7 @@ function ControlledExample() {
 
 ---
 
-## ✅ Requirements
+## Requirements
 
 ### Core behaviour
 - `NextTrigger` and `PrevTrigger` must not navigate out of bounds
@@ -198,7 +103,7 @@ function ControlledExample() {
 - `onStepComplete` fires **once** when the last step is passed
 - All subcomponents accept and apply a `className` prop
 
-### 🎛️ Controlled vs Uncontrolled
+### Controlled vs Uncontrolled
 
 `Root` must work in both modes — exactly like a native `<input value>` vs `<input defaultValue>`:
 
@@ -212,7 +117,7 @@ function ControlledExample() {
 
 ---
 
-## 🎁 Bonus (optional — not required to pass)
+## Bonus (optional — not required to pass)
 
 - Elements expose `data-complete`, `data-current`, or `data-incomplete` based on their state
 - Add a `Steps.Consumer` that exposes the full internal context via render prop
