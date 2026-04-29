@@ -83,8 +83,6 @@ function Controlled() {
       count={items.length}
       step={step}
       onStepChange={({ step }) => setStep(step)}
-      onStepInvalid={({ step, action }) => console.warn("blocked", step, action)}
-      isStepValid={(index) => index !== 1 || someCondition}
     >
       {/* same children as above */}
     </Steps.Root>
