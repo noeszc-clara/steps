@@ -8,9 +8,9 @@ Implement a multi-step wizard component in React **without any UI libraries**.
 
 | File | Purpose |
 |------|---------|
-| `src/steps/step.types.ts` | Type contracts — **do not modify** |
-| `src/steps/steps.tsx` | Your implementation goes here |
-| `src/steps/index.ts` | Re-exports — wire up your compound component here |
+| `src/steps/step.types.ts` | Type contracts — 🚫 **do not modify** |
+| `src/steps/steps.tsx` | ✏️ Your implementation goes here |
+| `src/steps/index.ts` | ✏️ Re-exports — wire up your compound component here |
 | `src/app.tsx` | Usage example — modify freely for testing |
 
 ---
@@ -103,7 +103,7 @@ function Controlled() {
 - `onStepComplete` fires **once** when the last step is passed
 - All subcomponents accept and apply a `className` prop
 
-### Controlled vs Uncontrolled
+### 🎛️ Controlled vs Uncontrolled
 
 `Root` must work in both modes — exactly like a native `<input value>` vs `<input defaultValue>`:
 
@@ -113,7 +113,7 @@ function Controlled() {
 | **Controlled** | `step` + `onStepChange` | Component holds **no** step state. It always renders `step` as-is and calls `onStepChange` when the user navigates. The parent is responsible for updating `step`. |
 
 - `onStepInvalid` must fire whenever forward navigation is blocked by `isStepValid`, whether triggered by `NextTrigger` or a direct step jump via `Trigger`
-- Do **not** accept both `step` and `defaultStep` simultaneously
+- ⚠️ Do **not** accept both `step` and `defaultStep` simultaneously
 
 ---
 
