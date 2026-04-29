@@ -98,7 +98,6 @@ function Controlled() {
 
 ### Core behaviour
 - `NextTrigger` and `PrevTrigger` must not navigate out of bounds
-- `NextTrigger` is **disabled** when `isStepValid` returns `false` for the current step
 - `CompletedContent` only renders when all steps are done
 - `onStepComplete` fires **once** when the last step is passed
 - All subcomponents accept and apply a `className` prop
