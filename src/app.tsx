@@ -1,7 +1,17 @@
+function Uncontrolled() {
+  return <pre>Uncontrolled</pre>;
+}
+
+function Controlled() {
+  return <pre>Controlled</pre>;
+}
+
 function App() {
   return (
     <div>
-      <pre>Start here</pre>
+      <Uncontrolled />
+      <hr />
+      <Controlled />
     </div>
   );
 }
